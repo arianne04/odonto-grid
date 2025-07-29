@@ -1,220 +1,153 @@
-<!DOCTYPE html><html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular Odontología UBA</title>
+  <title>Mapa de Materias Odontología UBA</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fffaf9;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background-color: #fff7f9;
       margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #76685f;
-    }
-
-    .container {
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
+    }h1 {
+  color: #ffb6c1;
+  text-align: center;
+  margin: 20px 0;
+}
 
-    .grid-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      align-items: center;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1300px;
+}
 
-    .grid {
-      display: grid;
-      gap: 10px;
-    }
+.columns-top, .columns-bottom {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
 
-    .grid.top {
-      grid-template-columns: repeat(4, 1fr);
-    }
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    .grid.bottom {
-      grid-template-columns: repeat(2, 1fr);
-    }
+.column h2 {
+  background-color: #ffe6f7;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: #d46a92;
+  margin: 0;
+}
 
-    .column {
-      background-color: #ffeef5;
-      border-radius: 10px;
-      padding: 10px;
-    }
+.materia {
+  padding: 8px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  border: 2px solid #00000010;
+  position: relative;
+  transition: transform 0.2s ease;
+}
 
-    .column h2 {
-      text-align: center;
-      color: #d48888;
-    }
+.materia:hover {
+  transform: scale(1.05);
+}
 
-    .subject {
-      background-color: #FFE6F7;
-      padding: 8px;
-      margin: 5px 0;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      z-index: 1;
-    }
+.bloqueada {
+  background-color: #FFE6F7;
+}
 
-    .subject.unlocked {
-      background-color: #F6B8B8;
-    }
+.desbloqueada {
+  background-color: #F6B8B8;
+}
 
-    .subject.completed {
-      background-color: #AD9281;
-      color: white;
-    }
+.completada {
+  background-color: #AD9281;
+}
 
-    .subject:hover .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
+.materia[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #333;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  margin-top: 5px;
+}
 
-    .tooltip {
-      visibility: hidden;
-      opacity: 0;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 5px;
-      border-radius: 6px;
-      position: absolute;
-      z-index: 10;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      transition: opacity 0.3s;
-    }
   </style>
-</head>
-<body>
-  <h1>Malla Curricular Odontología - UBA</h1>
-  <div class="grid" id="malla"></div>
-  <script>
-    const subjects = {
-      "CBC": [
-        { name: "Química" },
-        { name: "Matemática" },
-        { name: "Introducción a la Sociedad y el Estado" },
-        { name: "Física e Introducción a la Biofísica" },
-        { name: "Biología e Introducción a la Biología Celular" },
-        { name: "Introducción al Pensamiento Científico" }
-      ],
-      "2°": [
-        { name: "Anatomía General y Estomatológica", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
-        { name: "Bioquímica General", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
-        { name: "Histología y Embriología", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
-        { name: "Inmunología y Microbiología I", reqs: ["Histología y Embriología"] },
-        { name: "Biología Bucal", reqs: ["Histología y Embriología"] },
-        { name: "Inserción Temprana en la Clínica", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
-        { name: "Biofísica Aplicada a la Práctica Odontológica", reqs: ["Bioquímica General"] },
-        { name: "Diagnóstico por Imágenes con Radiofísica Sanitaria", reqs: ["Histología y Embriología"] },
-        { name: "Inglés Técnico", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] }
-      ],
-      "3°": [
-        { name: "Fisiología", reqs: ["Inmunología y Microbiología I"] },
-        { name: "Patología General", reqs: ["Biología Bucal"] },
-        { name: "Materiales Dentales I", reqs: ["Inmunología y Microbiología I"] },
-        { name: "Preclínica de Odontología Restauradora I", reqs: ["Anatomía General y Estomatológica", "Inserción Temprana en la Clínica", "Biología Bucal"] },
-        { name: "Odontología Preventiva y Mínimamente Invasiva I", reqs: ["Histología y Embriología", "Diagnóstico por Imágenes con Radiofísica Sanitaria", "Inserción Temprana en la Clínica", "Anatomía General y Estomatológica"] },
-        { name: "Preclínica Quirúrgica y Anestesia", reqs: ["Anatomía General y Estomatológica", "Inserción Temprana en la Clínica", "Biología Bucal"] },
-        { name: "Microbiología II", reqs: ["Biología Bucal"] },
-        { name: "Odontología Preventiva y Mínimamente Invasiva II", reqs: ["Odontología Preventiva y Mínimamente Invasiva I", "Microbiología II", "Preclínica Quirúrgica y Anestesia"] },
-        { name: "Preclínica de Odontología Restauradora II", reqs: ["Odontología Preventiva y Mínimamente Invasiva I", "Preclínica de Odontología Restauradora I"] },
-        { name: "Endodoncia I", reqs: ["Odontología Preventiva y Mínimamente Invasiva I", "Microbiología II", "Preclínica Quirúrgica y Anestesia"] },
-        { name: "Patología Bucal", reqs: ["Patología General"] },
-        { name: "Materiales Dentales II", reqs: ["Materiales Dentales I"] },
-        { name: "Bioética y Ejercicio Profesional", reqs: ["Inserción Temprana en la Clínica"] },
-        { name: "Introducción a la Periodoncia", reqs: ["Preclínica de Odontología Restauradora II"] }
-      ],
-      "4°": [
-        { name: "Preclínica de Rehabilitación Protética", reqs: ["Introducción a la Periodoncia", "Materiales Dentales II"] },
-        { name: "Farmacología", reqs: ["Fisiología", "Patología General"] },
-        { name: "Medicina Interna en la Práctica de la Odontología", reqs: ["Fisiología", "Odontología Preventiva y Mínimamente Invasiva II", "Inserción Temprana en la Clínica"] },
-        { name: "Endodoncia II", reqs: ["Endodoncia I", "Patología Bucal"] },
-        { name: "Periodoncia", reqs: ["Odontología Preventiva y Mínimamente Invasiva II", "Endodoncia I", "Preclínica de Rehabilitación Protética"] },
-        { name: "Odontología Restauradora", reqs: ["Periodoncia", "Endodoncia II", "Preclínica de Rehabilitación Protética"] },
-        { name: "Bioestadística y Metodología de la Investigación", reqs: ["Inglés Técnico"] },
-        { name: "Historia de la Odontología", reqs: ["CBC"] },
-        { name: "Cirugía y Traumatología Bucomaxilofacial I", reqs: ["Diagnóstico por Imágenes con Radiofísica Sanitaria", "Odontología Restauradora", "Endodoncia II", "Medicina Interna en la Práctica de la Odontología"] }
-      ],
-      "5°": [
-        { name: "Odontología Rehabilitadora Integral", reqs: ["Preclínica de Rehabilitación Protética", "Odontología Restauradora", "Cirugía y Traumatología Bucomaxilofacial I"] },
-        { name: "Cirugía y Traumatología Bucomaxilofacial II", reqs: ["Farmacología", "Cirugía y Traumatología Bucomaxilofacial I"] },
-        { name: "Odontología Integral Niños y Adolescentes", reqs: ["Cirugía y Traumatología Bucomaxilofacial II", "Odontología Restauradora", "Periodoncia", "Cirugía y Traumatología Bucomaxilofacial I"] },
-        { name: "Materiales Dentales III", reqs: ["Preclínica de Rehabilitación Protética", "Materiales Dentales II"] },
-        { name: "Diagnóstico por Imágenes II", reqs: ["Cirugía y Traumatología Bucomaxilofacial I"] },
-        { name: "Medicina Bucal I", reqs: ["Odontología Rehabilitadora Integral", "Farmacología"] },
-        { name: "Epidemiología y Salud de las Poblaciones", reqs: ["Periodoncia", "Bioestadística y Metodología de la Investigación"] }
-      ],
-      "6°": [
-        { name: "Odontología Integral Adultos (PPS)", reqs: ["Odontología Rehabilitadora Integral", "Cirugía y Traumatología Bucomaxilofacial II", "Odontología Integral Niños y Adolescentes"] },
-        { name: "Cirugía y Traumatología Bucomaxilofacial III", reqs: ["Cirugía y Traumatología Bucomaxilofacial II"] },
-        { name: "Articulación Docencia - Servicio - Investigación", reqs: ["Diagnóstico por Imágenes II", "Epidemiología y Salud de las Poblaciones"] },
-        { name: "Odontología Integral para el Adulto Mayor", reqs: ["Odontología Rehabilitadora Integral", "Cirugía y Traumatología Bucomaxilofacial II"] },
-        { name: "Ortodoncia I", reqs: ["Diagnóstico por Imágenes II"] },
-        { name: "Medicina Bucal II", reqs: ["Medicina Bucal I"] },
-        { name: "Odontología Legal y Forense", reqs: ["Diagnóstico por Imágenes II", "Ortodoncia I"] },
-        { name: "Sistema de Salud y Gestión Clínica", reqs: ["Epidemiología y Salud de las Poblaciones", "Odontología Legal y Forense"] },
-        { name: "Módulo Electivo Asistencial Orientado" }
-      ]
-    };const approved = JSON.parse(localStorage.getItem("aprobadas") || "[]");
+</head><body>
+  <h1>Mapa de Materias - Odontología UBA 🦷💖</h1>
+  <div class="container">
+    <div class="columns-top">
+      <div class="column">
+        <h2>CBC</h2>
+        <div class="materia completada">Química</div>
+        <div class="materia completada">Matemática</div>
+        <div class="materia completada">Introducción a la Sociedad y el Estado</div>
+        <div class="materia completada">Física e Introducción a la Biofísica</div>
+        <div class="materia completada">Biología e Introducción a la Biología Celular</div>
+        <div class="materia completada">Introducción al Pensamiento Científico</div>
+      </div>
+      <div class="column">
+        <h2>2°</h2>
+        <div class="materia desbloqueada">Anatomía</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Anatomía">Histología</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Anatomía">Embriología</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Anatomía">Microbiología</div>
+      </div>
+      <div class="column">
+        <h2>3°</h2>
+        <div class="materia bloqueada" data-tooltip="Falta: Histología, Microbiología">Patología General</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Embriología, Anatomía">Fisiología</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Fisiología">Farmacología</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Patología General">Odontología Preventiva</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Patología General">Odontología Legal</div>
+      </div>
+      <div class="column">
+        <h2>4°</h2>
+        <div class="materia bloqueada" data-tooltip="Falta: Farmacología, Preventiva">Odontología Integral I</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Integral I">Odontología Integral II</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Odontología Integral II">Prótesis I</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Odontología Integral II">Prótesis II</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Prótesis I, II">Ortodoncia</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Ortodoncia">Cirugía I</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Cirugía I">Cirugía II</div>
+      </div>
+    </div><div class="columns-bottom">
+  <div class="column">
+    <h2>5°</h2>
+    <div class="materia bloqueada" data-tooltip="Falta: Cirugía II">Clínica Estomatológica</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Clínica Estomatológica">Periodoncia</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Periodoncia">Operatoria Dental</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Operatoria Dental">Endodoncia</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Endodoncia">Radiología</div>
+  </div>
+  <div class="column">
+    <h2>6°</h2>
+    <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Adultos</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Niños</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños">Salud Pública</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Salud Pública">Ética y Deontología</div>
+    <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños, Ética">Trabajo Final</div>
+  </div>
+</div>
 
-function canActivate(subject) {
-  if (!subject.reqs) return true;
-  return subject.reqs.every(r => approved.includes(r));
-}
-
-function saveProgress() {
-  localStorage.setItem("aprobadas", JSON.stringify(approved));
-}
-
-const mallaDiv = document.getElementById("malla");
-
-for (const [anio, materias] of Object.entries(subjects)) {
-  const yearDiv = document.createElement("div");
-  yearDiv.className = "year";
-  const title = document.createElement("h2");
-  title.textContent = anio;
-  yearDiv.appendChild(title);
-
-  materias.forEach(m => {
-    const sDiv = document.createElement("div");
-    sDiv.className = "subject";
-    sDiv.textContent = m.name;
-
-    const isApproved = approved.includes(m.name);
-    const isLocked = !canActivate(m);
-
-    if (isApproved) sDiv.classList.add("approved");
-    else if (isLocked) {
-      sDiv.classList.add("locked");
-      sDiv.setAttribute("data-tooltip", "Falta: " + m.reqs.filter(r => !approved.includes(r)).join(", "));
-    }
-
-    sDiv.addEventListener("click", () => {
-      if (sDiv.classList.contains("locked")) return;
-      sDiv.classList.toggle("approved");
-      const index = approved.indexOf(m.name);
-      if (index > -1) approved.splice(index, 1);
-      else approved.push(m.name);
-      saveProgress();
-      location.reload();
-    });
-
-    yearDiv.appendChild(sDiv);
-  });
-
-  mallaDiv.appendChild(yearDiv);
-}
-
-  </script>
-</body>
-</html>
+  </div>
+</body></html>
