@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapa de Materias Odontología UBA</title>
@@ -11,88 +14,91 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-    }h1 {
-  color: #ffb6c1;
-  text-align: center;
-  margin: 20px 0;
-}
+    }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 20px;
-  width: 100%;
-  max-width: 1300px;
-}
+    h1 {
+      color: #ffb6c1;
+      text-align: center;
+      margin: 20px 0;
+    }
 
-.columns-top, .columns-bottom {
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-}
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 20px;
+      width: 100%;
+      max-width: 1300px;
+    }
 
-.column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .columns-top, .columns-bottom {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+    }
 
-.column h2 {
-  background-color: #ffe6f7;
-  text-align: center;
-  padding: 10px;
-  border-radius: 10px;
-  color: #d46a92;
-  margin: 0;
-}
+    .column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-.materia {
-  padding: 8px;
-  border-radius: 10px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 14px;
-  border: 2px solid #00000010;
-  position: relative;
-  transition: transform 0.2s ease;
-}
+    .column h2 {
+      background-color: #ffe6f7;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      color: #d46a92;
+      margin: 0;
+    }
 
-.materia:hover {
-  transform: scale(1.05);
-}
+    .materia {
+      padding: 8px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 14px;
+      border: 2px solid #00000010;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
 
-.bloqueada {
-  background-color: #FFE6F7;
-}
+    .materia:hover {
+      transform: scale(1.05);
+    }
 
-.desbloqueada {
-  background-color: #F6B8B8;
-}
+    .bloqueada {
+      background-color: #FFE6F7;
+    }
 
-.completada {
-  background-color: #AD9281;
-}
+    .desbloqueada {
+      background-color: #F6B8B8;
+    }
 
-.materia[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ffffff;
-  color: #333;
-  padding: 6px 10px;
-  border-radius: 8px;
-  white-space: nowrap;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  margin-top: 5px;
-}
+    .completada {
+      background-color: #AD9281;
+    }
 
+    .materia[data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffffff;
+      color: #333;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      margin-top: 5px;
+    }
   </style>
-</head><body>
+</head>
+
+<body>
   <h1>Mapa de Materias - Odontología UBA 🦷💖</h1>
   <div class="container">
     <div class="columns-top">
@@ -130,24 +136,27 @@
         <div class="materia bloqueada" data-tooltip="Falta: Ortodoncia">Cirugía I</div>
         <div class="materia bloqueada" data-tooltip="Falta: Cirugía I">Cirugía II</div>
       </div>
-    </div><div class="columns-bottom">
-  <div class="column">
-    <h2>5°</h2>
-    <div class="materia bloqueada" data-tooltip="Falta: Cirugía II">Clínica Estomatológica</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Clínica Estomatológica">Periodoncia</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Periodoncia">Operatoria Dental</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Operatoria Dental">Endodoncia</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Endodoncia">Radiología</div>
-  </div>
-  <div class="column">
-    <h2>6°</h2>
-    <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Adultos</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Niños</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños">Salud Pública</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Salud Pública">Ética y Deontología</div>
-    <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños, Ética">Trabajo Final</div>
-  </div>
-</div>
+    </div>
 
+    <div class="columns-bottom">
+      <div class="column">
+        <h2>5°</h2>
+        <div class="materia bloqueada" data-tooltip="Falta: Cirugía II">Clínica Estomatológica</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Clínica Estomatológica">Periodoncia</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Periodoncia">Operatoria Dental</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Operatoria Dental">Endodoncia</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Endodoncia">Radiología</div>
+      </div>
+      <div class="column">
+        <h2>6°</h2>
+        <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Adultos</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Todas las anteriores">Clínica Integral Niños</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños">Salud Pública</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Salud Pública">Ética y Deontología</div>
+        <div class="materia bloqueada" data-tooltip="Falta: Clínica Integral Adultos, Niños, Ética">Trabajo Final</div>
+      </div>
+    </div>
   </div>
-</body></html>
+</body>
+
+</html>
