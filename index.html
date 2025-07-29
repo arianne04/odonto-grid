@@ -13,7 +13,7 @@
     h1 {
       text-align: center;
       margin-bottom: 30px;
-      color: #5a4a42;
+      color: #76685f;
     }
     .grid {
       display: grid;
@@ -42,14 +42,17 @@
       transition: 0.3s;
       color: #5a4a42;
     }
-    .subject.approved {
-      background: #d4f8d4;
-      text-decoration: line-through;
-    }
     .subject.locked {
-      background: #f9d6d5;
+      background: #ffe6f7;
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: 0.9;
+    }
+    .subject.unlocked {
+      background: #f6b8b8;
+    }
+    .subject.approved {
+      background: #ad9281;
+      text-decoration: line-through
     }
     .subject:hover::after {
       content: attr(data-tooltip);
@@ -81,15 +84,15 @@
         { name: "Introducción al Pensamiento Científico" }
       ],
       "2°": [
-        { name: "Anatomía General y Estomatológica", reqs: ["CBC"] },
-        { name: "Bioquímica General", reqs: ["CBC"] },
-        { name: "Histología y Embriología", reqs: ["CBC"] },
+        { name: "Anatomía General y Estomatológica", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
+        { name: "Bioquímica General", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
+        { name: "Histología y Embriología", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
         { name: "Inmunología y Microbiología I", reqs: ["Histología y Embriología"] },
         { name: "Biología Bucal", reqs: ["Histología y Embriología"] },
-        { name: "Inserción Temprana en la Clínica", reqs: ["CBC"] },
+        { name: "Inserción Temprana en la Clínica", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] },
         { name: "Biofísica Aplicada a la Práctica Odontológica", reqs: ["Bioquímica General"] },
         { name: "Diagnóstico por Imágenes con Radiofísica Sanitaria", reqs: ["Histología y Embriología"] },
-        { name: "Inglés Técnico" }
+        { name: "Inglés Técnico", reqs: ["Química", "Matemática", "Introducción a la Sociedad y el Estado", "Física e Introducción a la Biofísica", "Biología e Introducción a la Biología Celular", "Introducción al Pensamiento Científico"] }
       ],
       "3°": [
         { name: "Fisiología", reqs: ["Inmunología y Microbiología I"] },
