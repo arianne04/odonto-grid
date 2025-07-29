@@ -12,61 +12,85 @@
     }
     h1 {
       text-align: center;
-      margin-bottom: 30px;
       color: #76685f;
     }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .grid-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 15px;
+      gap: 10px;
     }
-    .year {
-      background: #fef2f4;
-      border: 1px solid #f4c6c6;
+
+    .grid.top {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid.bottom {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .column {
+      background-color: #ffeef5;
       border-radius: 10px;
       padding: 10px;
     }
-    .year h2 {
+
+    .column h2 {
       text-align: center;
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #a97171;
+      color: #d48888;
     }
+
     .subject {
-      background: #ffe0e9;
-      margin: 5px 0;
+      background-color: #FFE6F7;
       padding: 8px;
-      border-radius: 5px;
+      margin: 5px 0;
+      border-radius: 6px;
       cursor: pointer;
       position: relative;
-      transition: 0.3s;
-      color: #5a4a42;
+      z-index: 1;
     }
-    .subject.locked {
-      background: #ffe6f7;
-      cursor: not-allowed;
-      opacity: 0.9;
-    }
+
     .subject.unlocked {
-      background: #f6b8b8;
+      background-color: #F6B8B8;
     }
-    .subject.approved {
-      background: #ad9281;
-      text-decoration: line-through
-    }
-    .subject:hover::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #5a4a42;
+
+    .subject.completed {
+      background-color: #AD9281;
       color: white;
-      padding: 5px 10px;
-      white-space: nowrap;
-      font-size: 12px;
-      border-radius: 5px;
+    }
+
+    .subject:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
+      position: absolute;
       z-index: 10;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      transition: opacity 0.3s;
     }
   </style>
 </head>
